@@ -19,8 +19,8 @@ class HomePages extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Gambar nasi goreng
-            Image.network(
-              'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400',
+            Image.asset(
+              'assets/images/nasgor.png',
               height: 200,
               fit: BoxFit.cover,
             ),

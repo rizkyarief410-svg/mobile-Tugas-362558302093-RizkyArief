@@ -20,8 +20,8 @@ class DetailPages extends StatelessWidget {
             // Gambar
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400',
+              child: Image.asset(
+                'assets/images/nasgor.jpg',
                 height: 200,
                 width: double.infinity,
                 fit: BoxFit.cover,
