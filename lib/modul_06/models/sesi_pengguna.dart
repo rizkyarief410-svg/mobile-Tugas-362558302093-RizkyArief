@@ -15,6 +15,26 @@ class SesiPengguna {
     required this.kedaluwarsaPada,
   });
 
+  factory SesiPengguna.fromJson(Map<String, dynamic> json) {
+    return SesiPengguna(
+      token: json['token'] as String? ?? '',
+      email: json['email'] as String? ?? 'tanpa-email',
+      nama: json['nama'] as String? ?? 'Pengguna',
+      peran: json['peran'] as String? ?? 'mahasiswa',
+      masukPada: json['masukPada'] as String? ?? '1970-01-01T00:00:00.000',
+      kedaluwarsaPada: json['kedaluwarsaPada'] as String? ?? '1970-01-01T00:00:00.000',
+    );
+  }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'token': token,
+    'email': email,
+    'nama': nama,
+    'peran': peran,
+    'masukPada': masukPada,
+    'kedaluwarsaPada': kedaluwarsaPada,
+  };
+
   Duration sisaWaktu(DateTime sekarang) {
     final DateTime? batas = DateTime.tryParse(kedaluwarsaPada);
     if (batas == null) return Duration.zero;
