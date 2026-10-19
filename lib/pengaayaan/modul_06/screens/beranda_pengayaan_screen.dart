@@ -23,6 +23,15 @@ class BerandaPengayaanScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
+
+            // ✅ LATIHAN 5: Tombol pindah ke Profil
+            ElevatedButton.icon(
+              onPressed: () => controller.bukaProfil(),
+              icon: const Icon(Icons.person),
+              label: const Text('Lihat Profil'),
+            ),
+
+            const SizedBox(height: 10),
             OutlinedButton.icon(
               onPressed: () => controller.logout(),
               icon: const Icon(Icons.logout),

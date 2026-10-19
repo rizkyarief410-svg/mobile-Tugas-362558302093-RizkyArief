@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../modul_06/services/auth_api.dart';
-import '../../modul_06/services/sesi_memori.dart';
+import '../../../modul_06/services/auth_api.dart';
+import '../../../modul_06/services/sesi_memori.dart';
 import 'storage/penyimpanan_aman_platform.dart';
 import 'repositories/memori_sesi_repository.dart';
 import 'repositories/prefs_sesi_repository.dart';
@@ -10,6 +10,7 @@ import 'controllers/sesi_controller.dart';
 import 'widgets/gerbang_sesi.dart';
 import 'screens/login_pengayaan_screen.dart';
 import 'screens/beranda_pengayaan_screen.dart';
+import 'screens/profil_pengayaan_screen.dart';
 
 class Modul06PengayaanApp extends StatefulWidget {
   const Modul06PengayaanApp({super.key});
@@ -76,6 +77,12 @@ class _Modul06PengayaanAppState extends State<Modul06PengayaanApp> {
           controller: _controller,
           form: (ctx) => LoginPengayaanScreen(controller: _controller),
           beranda: (ctx, sesi) => BerandaPengayaanScreen(controller: _controller, sesi: sesi),
+
+
+          profil: (ctx, sesi) => ProfilPengayaanScreen(
+            sesi: sesi,
+            onKembali: () => _controller.tutupProfil(),
+          ),
         ),
       ),
     );

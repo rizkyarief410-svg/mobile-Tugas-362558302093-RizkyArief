@@ -14,6 +14,9 @@ class AuthApi {
   static const String emailTerkunci = 'terkunci@trpl.test';
   static const String emailServerGangguan = 'gangguan@trpl.test';
 
+
+  static const String emailBelumAktivasi = 'belumaktif@trpl.test';
+
   final Duration tunda;
   const AuthApi({this.tunda = const Duration(milliseconds: 700)});
 
@@ -28,12 +31,23 @@ class AuthApi {
     if (emailBersih.isEmpty || sandi.isEmpty) {
       throw const AuthException('Email dan kata sandi wajib diisi.', kode: 400);
     }
+
     if (emailBersih == emailTerkunci) {
       throw const AuthException('Akun terkunci sementara.', kode: 423);
     }
+
     if (emailBersih == emailServerGangguan) {
       throw const AuthException('Server sedang tidak dapat dihubungi.', kode: 503);
     }
+
+
+    if (emailBersih == emailBelumAktivasi) {
+      throw const AuthException(
+        'Akun Anda belum diaktivasi. Silakan cek email untuk verifikasi.',
+        kode: 403,
+      );
+    }
+
     if (emailBersih != emailDemo || sandi != sandiDemo) {
       throw const AuthException('Email atau kata sandi salah.');
     }

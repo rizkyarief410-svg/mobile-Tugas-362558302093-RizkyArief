@@ -14,6 +14,10 @@ class SesiController extends ChangeNotifier {
   SesiPengguna? _sesi;
   String? _pesanError;
 
+  // ✅ LATIHAN 5: State untuk navigasi
+  bool _diHalamanProfil = false;
+  bool get diHalamanProfil => _diHalamanProfil;
+
   SesiController({
     required this.api,
     required this.repository,
@@ -24,6 +28,17 @@ class SesiController extends ChangeNotifier {
   SesiPengguna? get sesi => _sesi;
   String? get pesanError => _pesanError;
   SesiRepository get repo => repository;
+
+  // ✅ LATIHAN 5: Fungsi navigasi
+  void bukaProfil() {
+    _diHalamanProfil = true;
+    notifyListeners();
+  }
+
+  void tutupProfil() {
+    _diHalamanProfil = false;
+    notifyListeners();
+  }
 
   Future<void> pulihkan() async {
     _ubahStatus(StatusSesi.memeriksa);
@@ -37,7 +52,7 @@ class SesiController extends ChangeNotifier {
     if (tersimpan.sudahKedaluwarsa(jam())) {
       await repository.hapus();
       _sesi = null;
-      _ubahStatus(StatusSesi.kedaluwarsa, pesan: 'Sesi Anda sudah berakhir. Silakan masuk kembali.');
+      _ubahStatus(StatusSesi.kedaluwarsa, pesan: 'Sesi Anda sudah berakhir.');
       return;
     }
 
@@ -53,6 +68,7 @@ class SesiController extends ChangeNotifier {
       final hasil = await api.masuk(email: email, sandi: sandi);
       await repository.simpan(hasil);
       _sesi = hasil;
+      _diHalamanProfil = false; // Pastikan mulai dari beranda
       _ubahStatus(StatusSesi.masuk);
     } on AuthException catch (e) {
       _ubahStatus(StatusSesi.gagal, pesan: e.pesan);
@@ -64,6 +80,7 @@ class SesiController extends ChangeNotifier {
   Future<void> logout() async {
     await repository.hapus();
     _sesi = null;
+    _diHalamanProfil = false;
     _ubahStatus(StatusSesi.keluar, pesan: null);
   }
 
